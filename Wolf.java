@@ -11,8 +11,7 @@ import java.util.Random;
 
 public class Wolf extends Animal{
 	
-	private float energy, maxEnergy;
-	private int posX, posY;
+	static private int wolfN = 1;
 	
 	private double randVal;
 	
@@ -26,6 +25,7 @@ public class Wolf extends Animal{
 		posX = (int) (worldDim * randVal);
 		randVal = rand.nextDouble();
 		posY = (int) (worldDim * randVal);
+		this.setName("Wolf " + wolfN++);
 		
 	}
 	
@@ -126,4 +126,12 @@ public class Wolf extends Animal{
     public String toString() {
         return "Wolf{" + "energy=" + energy + ", maxEnergy=" + maxEnergy + ", posX=" + posX + ", posY=" + posY + ", randVal=" + randVal + '}';
     }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

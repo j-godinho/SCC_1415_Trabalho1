@@ -9,7 +9,9 @@ import java.util.Random;
  *
  */
 
-public class Sheep extends Animal{	
+public class Sheep extends Animal{
+	
+	static private int sheepN = 1;
 	
 	Sheep(float maxEnergy, int worldDim){
 		super();
@@ -21,6 +23,7 @@ public class Sheep extends Animal{
 		posX = (int) (worldDim * randVal);
 		randVal = rand.nextDouble();
 		posY = (int) (worldDim * randVal);
+		this.setName("Sheep " + sheepN++);
 		
 	}
 	
@@ -89,6 +92,14 @@ public class Sheep extends Animal{
 	 public void setPosY(int posY) {
 	     this.posY = posY;
 	 }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	 /*
 	 public Random getRand() {

@@ -22,11 +22,11 @@ public class World {
 	private ArrayList<Sheep> sheepsMap;				//arraylist das ovelhas
 	
 	World(int dimention, int startWolfs, float wolfMaxEnergy, int startSheeps, float sheepMaxEnergy){
-		this.dimention = dimention;
+		World.dimention = dimention;
 		this.startWolfs = startWolfs;
 		this.startSheeps = startSheeps;
-		this.wolfMaxEnergy = wolfMaxEnergy;
-		this.sheepMaxEnergy = sheepMaxEnergy;
+		World.wolfMaxEnergy = wolfMaxEnergy;
+		World.sheepMaxEnergy = sheepMaxEnergy;
 		this.vegetationMap = new Vegetation[dimention][dimention];
 		this.wolfsMap = new ArrayList<Wolf>();
 		this.sheepsMap = new ArrayList<Sheep>();
@@ -38,7 +38,7 @@ public class World {
 	public void generateVegetation(){
 		for(int l=0; l<dimention; l++){
 			for(int c=0; c<dimention; c++){
-				vegetationMap[l][c] = new Vegetation(4, 30);
+				vegetationMap[l][c] = new Vegetation(4, 10);
 			}
 		}
 	}
@@ -96,22 +96,24 @@ public class World {
 		eatVegetation();
 		
 		// ovelhas procriam
+		/*
 		for (Sheep s : sheepsMap) {
             newSheep(s, newSheeps);
         }
         sheepsMap.addAll(newSheeps);
         newSheeps.clear();
-		
+		*/
 		// lobos comem ovelhas
-        killSheeps();
+        //killSheeps();
 		
 		// lobos procriam
+		/*
 		for (Wolf w : wolfsMap) {
             newWolf(w, newWolfs);
         }
         wolfsMap.addAll(newWolfs);
         newWolfs.clear();
-		
+		*/
 	}
 	
 	/**
@@ -124,8 +126,10 @@ public class World {
     {
         if(rand.nextDouble()<=0.05)
         {
-            newWolfs.add(new Wolf(wolf.getEnergy()/2,wolf.getMaxEnergy(),wolf.getPosX(),wolf.getPosY()));
+        	Wolf wTemp = new Wolf(wolf.getEnergy()/2,wolf.getMaxEnergy(),wolf.getPosX(),wolf.getPosY());
+            newWolfs.add(wTemp);
             wolf.halfEnergy();
+            System.out.println(wolf.getName() + " gerou um novo lobo: " + wTemp.getName());
         }
     }
 
@@ -133,8 +137,10 @@ public class World {
     {
         if(rand.nextDouble()<=0.04)
         {
-            newSheeps.add(new Sheep(sheep.getEnergy()/2,sheep.getMaxEnergy(), sheep.getPosX(),sheep.getPosY()));
+        	Sheep sTemp = new Sheep(sheep.getEnergy()/2,sheep.getMaxEnergy(), sheep.getPosX(),sheep.getPosY());
+            newSheeps.add(sTemp);
             sheep.halfEnergy();
+            System.out.println(sheep.getName() + " gerou uma nova ovelha: " + sTemp.getName());
         }
     }
     
@@ -228,6 +234,7 @@ public class World {
         
         // remove lobos do array principal
         for(Wolf w : wolfsToRemove){
+        	System.out.println(w.getName() + " morreu");
         	wolfsMap.remove(w);
         }
         
@@ -242,6 +249,7 @@ public class World {
         
         // remove ovelhas
         for(Sheep s : sheepsToRemove){
+        	System.out.println(s.getName() + " morreu");
         	sheepsMap.remove(s);
         }
         
@@ -252,7 +260,7 @@ public class World {
 	 * Devolve a quantidade de objectos de vegetacao com energia maior que zero
 	 * @return
 	 */
-	public int getVegetation(){
+	public int getQuantityVegetation(){
 		int nVeg = 0;
 		for(int l=0; l<dimention; l++){
 			for(int c=0; c<dimention; c++){
@@ -289,14 +297,6 @@ public class World {
         this.rand = rand;
     }
 
-    public int getDimention() {
-        return dimention;
-    }
-
-    public void setDimention(int dimention) {
-        this.dimention = dimention;
-    }
-
     public int getStartWolfs() {
         return startWolfs;
     }
@@ -311,22 +311,6 @@ public class World {
 
     public void setStartSheeps(int startSheeps) {
         this.startSheeps = startSheeps;
-    }
-
-    public float getWolfMaxEnergy() {
-        return wolfMaxEnergy;
-    }
-
-    public void setWolfMaxEnergy(float wolfMaxEnergy) {
-        this.wolfMaxEnergy = wolfMaxEnergy;
-    }
-
-    public float getSheepMaxEnergy() {
-        return sheepMaxEnergy;
-    }
-
-    public void setSheepMaxEnergy(float sheepMaxEnergy) {
-        this.sheepMaxEnergy = sheepMaxEnergy;
     }
 
     public Vegetation[][] getVegetationMap() {

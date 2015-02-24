@@ -18,11 +18,17 @@ public class Vegetation {
 	Vegetation(int maxEnergy, int maxGrowthStage){
 		this.maxEnergy = maxEnergy;
 		this.maxGrowthStage = maxGrowthStage;
-		randVal = rand.nextDouble();
-		growthStage = (int) (maxGrowthStage * randVal);
-		
-		if(growthStage == maxGrowthStage){
+		if(rand.nextDouble() >= 0.5){
+			growthStage = maxGrowthStage;
 			energy = maxEnergy;
+		}
+		else{
+			randVal = rand.nextDouble();
+			growthStage = (int) (maxGrowthStage * randVal);
+			
+			if(growthStage == maxGrowthStage){
+				energy = maxEnergy;
+			}
 		}
 	}
 	
